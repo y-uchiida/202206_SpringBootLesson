@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Calc</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+</head>
+<body>
+  <h1 class="bg-warning text-white px-4 mb-0">/calc/[[${num1}]]/[[${num2}]]</h1>
+  
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <div class="container-fluid">
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" href="/calc/10/20">calc/10/20</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/calc2">/calc2</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/multiplicationTable">/multiplicationTable</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+  </nav>
+  
+  
+  <div class="container">
+	  <p>
+	  	num1: <span th:text="${num1}"></span>, num2: <span th:text="${num2}"></span>
+	  </p>
+	  
+	  <p>
+	    <!--/* spanタグのtextに、変数の内容を入れる。 th:textの中で、計算も可能 */-->
+	  	<span th:text="${num1}"></span> + <span th:text="${num2}"></span> = <span th:text="${num1} + ${num2}">
+	  </p>
+	  
+	  
+	  <p>
+		<!--/* htmlの要素を使わずにコントローラから受け取った変数を扱いたい場合は、 [[]] の間に記述する */-->
+	  	[[${num1}]] - [[${num2}]] = [[${num1} - ${num2}]]
+	  </p>
+	  
+	  <p>
+	  	[[${num1}]] * [[${num2}]] = [[${num1} * ${num2}]]
+	  </p>
+	  
+	  <p>
+			<!--/* 割り算の場合は、zero devide exception に注意する */-->
+			<th:block th:if="${num2 != 0}">
+			  	[[${num1}]] / [[${num2}]] = [[${num1} / ${num2}]]
+			</th:block>
+			
+			<th:block th:if="${num2 == 0}">
+				0の除算は定義できません
+			</th:block>
+	  </p>
+  </div>
+</body>
+</html>

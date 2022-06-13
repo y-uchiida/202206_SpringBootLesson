@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+</head>
+<body>
+  <h1 class="bg-warning text-white px-4 mb-4">Form</h1>
+  <div class="container">
+<b>    <h2 th:text="${title}"></b><b>フォーム送信</h2></b>
+<b>    <p th:text="${msg}">wait...</p></b>
+<b>    <div class="form-group my-3"></b>
+<b>      <form method="post" action="/form"></b>
+<b>        <input type="text" name="input1" class="form-control mb-2" /></b>
+<b>        <input type="submit" class="btn btn-warning px-4" value="</b><b>送信" /></b>
+<b>      </form></b>
+<b>    </div></b>
+  </div>
+</body>
+</html>
