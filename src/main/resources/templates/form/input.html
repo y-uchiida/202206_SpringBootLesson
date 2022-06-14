@@ -8,9 +8,10 @@
 </head>
 <body>
 
-	<form action=""　th:action="@{/confirm}" method="GET">
+	<form action=""　th:action="@{/confirm}" method="GET" th:object="${form}">
+		<p th:if="#{fields.hasErrors('name')}" th:errors="*{name}">nameの入力内容に関するエラーを表示</p>
   		<label>
-  		name <input type="text" name="name">
+  		name <input type="text" name="name" th:value="*{name}">
   		</label>
   		<input type="submit" value="送信">
   	</form>

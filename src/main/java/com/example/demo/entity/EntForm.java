@@ -1,14 +1,20 @@
-package com.example.demo.form;
+package com.example.demo.entity;
 
-import javax.validation.constraints.Size;
+public class EntForm {
 
-public class Form {
-
-	@Size(min=1, max=10, message="input 1 to 10")
+	private int id;
 	private String name;
 	
-	public Form() {
+	public EntForm() {
 		// TODO Auto-generated constructor stub
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 
 	public String getName() {
