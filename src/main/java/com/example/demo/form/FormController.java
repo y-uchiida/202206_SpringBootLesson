@@ -1,10 +1,13 @@
 package com.example.demo.form;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.example.demo.dao.SampleDao;
@@ -57,5 +60,29 @@ public class FormController {
 		this.sampleDao.insertDb(entForm);
 		
 		return "form/complete";
+	}
+	
+	@RequestMapping("/view")
+	public String view(Model model) {
+		// DAOからSQLの実行結果を受け取る
+		List<EntForm> list = sampleDao.searchDb();
+		
+		//modelに受け取ったSQLのデータを渡しておく
+		model.addAttribute("dbList", list);
+		
+		return "form/view";
+	}
+	
+	/* 削除のときの処理 */
+	@RequestMapping("del/{id}")
+	public String destoroy(
+		@PathVariable Long id
+	)
+	{
+		/* 指定のIDのデータを削除する */
+		sampleDao.deleteDb(id);
+		
+		/* redirect:<URL> で、指定のURLに遷移する */
+		return "redirect:/view";
 	}
 }
