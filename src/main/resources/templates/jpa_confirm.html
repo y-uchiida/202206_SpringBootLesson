@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>jpa_confirm (staff 情報の入力内容確認) </title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+</head>
+<body>
+
+	<h1>JPA(INSERT:登録) 確認画面</h1>
+	<p>入力内容ここから</p>
+	<p th:text="${form.name}"></p>
+	<p>入力内容ここまで</p>
+
+	<form action="" th:action="@{/staff/form}" method="GET">
+		<!--/* 入力画面に戻る際に、入力されているデータを保持したままにしたい */-->
+		<!--/* 戻る際にもhiddenで内容を送信しておけば、前の画面に引き継げる */-->
+		<input type="hidden" name="name" th:value="${form.name}">
+		<input type="submit" value="入力画面に戻る">
+	</form>
+	
+	<form action="" th:action="@{/staff/complete}" method="GET">
+		<!--/* 入力内容を保存する画面に進む際に、データを保持しておくため、hiddenで送信する */-->
+		<input type="hidden" name="name" th:value="${form.name}">
+		<input type="submit" value="完了画面に進む">
+  	</form>
+
+</body>
+</html>

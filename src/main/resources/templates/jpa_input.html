@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>jpa_input (staff 情報の入力) </title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+</head>
+<body>
+
+	<form action="" th:action="@{/staff/confirm}" method="GET" th:object="${form}">
+		<p>名前: <input type="text" name="name" th:value="*{name}"></p>
+		<div th:if="#{fields.hasErrors('name')}" th:errors="*{name}" class="error">エラー</div>
+		<input type="submit" value="次へ進む">
+  	</form>
+
+</body>
+</html>
