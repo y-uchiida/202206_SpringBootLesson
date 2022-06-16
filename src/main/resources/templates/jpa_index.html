@@ -17,14 +17,23 @@
 		<tr>
 			<th>ID</th>
 			<th>名前</th>
+			<th>編集</th>
+			<th>削除</th>
 		</tr>
 		<tr th:each="staff : ${staffList}">
 			<td th:text="${staff.id}">idの値</td>
 			<td th:text="${staff.name}">nameの値</td>
 			
+			<!-- /* 編集ボタンを表示する */ -->
+			<td>
+				<form th:action="@{/staff/edit/{id}(id = ${staff.id})}">
+					<input type="submit" value="編集">
+				</form>
+			</td>
+
 			<!-- /* 削除ボタンを表示する */ -->
 			<td>
-				<form th:action="@{/del/{id}(id = ${staff.id})}">
+				<form th:action="@{/staff/del/{id}(id = ${staff.id})}">
 					<input type="submit" value="削除">
 				</form>
 			</td>

@@ -12,8 +12,7 @@ public class Staff {
 
 	@Id // データベースのテーブル側で、プライマリキーになることを示す
 	@GeneratedValue(strategy = GenerationType.IDENTITY) // 新規レコード作成時に、重複しない値でidを生成
-	private Integer id;
-	private String email; // メールアドレス
+	private Long id; // エラーが出るので、 JPAのリポジトリにあわせてint からLongにしておきます
 	private String name;
 	
 	
@@ -22,12 +21,12 @@ public class Staff {
 	}
 
 
-	public Integer getId() {
+	public Long getId() {
 		return id;
 	}
 
 
-	public void setId(Integer id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

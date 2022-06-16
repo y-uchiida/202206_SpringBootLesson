@@ -1,16 +1,21 @@
 package com.example.demo.entity;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.context.annotation.RequestScope;
 
 import com.example.demo.db.JpaDao;
 import com.example.demo.form.Form;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class JpaController {
@@ -77,6 +82,49 @@ public class JpaController {
 		this.jpaDao.save(s1);
 
 		return "jpa_complete";
+	}
+
+	// Staff 情報を編集する画面用のメソッドを作成
+	@RequestMapping(value = "/staff/edit/{id}")
+	public String edit(@PathVariable Long id, Model model, Form form) {
+		// jpaDaoから、指定のIDのレコード(Staff エンティティ)を取得する
+		// findById はOptional型を返してくれるので、.orElseThrow() を使ってStaffのエンティティを取り出す
+		// .orElseThrow を使うことで、指定したIDが存在しなかった場合に例外を発生させることができる
+		Staff staff = this.jpaDao.findById(id).orElseThrow();
+
+		// form.name がnullのとき (== 一覧画面から異動してきた直後)の場合は、
+		// 初期値としてDBに保存されているstaffの名前を入れておく
+		if (form.getName() == null){
+			form.setName(staff.getName());
+		}
+
+		// 取得したStaff のエンティティをモデルに渡し、ビューで使えるようにする
+		model.addAttribute("staff", staff);
+
+		return "jpa_edit";
+	}
+
+	// Staff 情報を編集する画面用のメソッドを作成
+	@RequestMapping(value = "/staff/edit/{id}/exe")
+	public String update(@PathVariable Long id, Model model, @Validated Form form, BindingResult result) {
+		
+		// jpaDaoから、指定のIDのレコード(Staff エンティティ)を取得する
+		// findById はOptional型を返してくれるので、.orElseThrow() を使ってStaffのエンティティを取り出す
+		// .orElseThrow を使うことで、指定したIDが存在しなかった場合に例外を発生させることができる
+		Staff staff = this.jpaDao.findById(id).orElseThrow();
+
+		// 内容が正しくない場合、入力画面に戻る
+		if (result.hasErrors()){
+			// 取得したStaff のエンティティをモデルに渡し、ビューで使えるようにする
+			model.addAttribute("staff", staff);
+			return "jpa_edit";
+		}
+
+		// 入力内容に問題がないので、更新処理を実行する
+		this.jpaDao.updateDb(form.getName(), id);
+
+		// Staff一覧画面へリダイレクトする
+		return "redirect:/staff_list";
 	}
 
 }
