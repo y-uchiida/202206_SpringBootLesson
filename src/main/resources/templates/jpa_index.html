@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>jpa_index</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/css/bootstrap.min.css"
+    rel="stylesheet">
+    
+<link rel="stylesheet" th:href="@{/style.css}">
+</head>
+<body>
+
+	<!-- /* 受け取ったリストをloop で処理する */ -->
+	<table>
+		<tr>
+			<th>ID</th>
+			<th>名前</th>
+		</tr>
+		<tr th:each="staff : ${staffList}">
+			<td th:text="${staff.id}">idの値</td>
+			<td th:text="${staff.name}">nameの値</td>
+			
+			<!-- /* 削除ボタンを表示する */ -->
+			<td>
+				<form th:action="@{/del/{id}(id = ${staff.id})}">
+					<input type="submit" value="削除">
+				</form>
+			</td>
+		</tr>
+	</table>
+
+</body>
+</html>
