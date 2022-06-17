@@ -127,4 +127,20 @@ public class JpaController {
 		return "redirect:/staff_list";
 	}
 
+	// スタッフ情報を削除するメソッドを作成
+	@RequestMapping("/staff/del/{id}")
+	public String delete(@PathVariable Long id){
+		
+		// 指定のIDのレコードがあるかを確認するために、jpaDaoからレコード(Staff エンティティ)を取得する
+		// findById はOptional型を返してくれるので、.orElseThrow() を使ってStaffのエンティティを取り出す
+		// .orElseThrow を使うことで、指定したIDが存在しなかった場合に例外を発生させることができる
+		Staff staff = this.jpaDao.findById(id).orElseThrow();
+
+		// 削除すべきデータがあるので、jpaを使って削除を実行する
+		this.jpaDao.deleteById(id);
+
+		// 削除完了したら、Staff一覧画面に戻す
+		return "redirect:/staff_list";
+	}
+
 }
